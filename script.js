@@ -1,5 +1,19 @@
 // code by webdevtrick (https://webdevtrick.com)
 // Credit to Jake Wagner for finding this Website
+// Set up variables for timer
+var count = 5;
+var timer = setInterval(function() {
+    console.log(count);
+    count--;
+    if (count ===0) {
+        stopInterval();
+    }
+}, 1000);
+var stopInterval = function(){
+    console.log('time is up');
+    clearInterval(timer);
+    showScores();
+}
 function Quiz(questions) {
     this.score = 0;
     this.questions = questions;
