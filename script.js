@@ -1,19 +1,25 @@
 // code by webdevtrick (https://webdevtrick.com)
 // Credit to Jake Wagner for finding this Website
 // Set up variables for timer
-var count = 5;
+var count = 30;
+// var finalScore = parseInt(count)*parseInt(quiz.score);
 var timer = setInterval(function() {
     console.log(count);
+    document.getElementById("timer").innerHTML = count;
     count--;
     if (count ===0) {
         stopInterval();
     }
 }, 1000);
+
 var stopInterval = function(){
-    console.log('time is up');
+    console.log('Quiz is Over');
     clearInterval(timer);
     showScores();
+    
 }
+
+
 function Quiz(questions) {
     this.score = 0;
     this.questions = questions;
@@ -27,6 +33,9 @@ Quiz.prototype.getQuestionIndex = function() {
 Quiz.prototype.guess = function(answer) {
     if(this.getQuestionIndex().isCorrectAnswer(answer)) {
         this.score++;
+    }
+    else {
+        count = (count -4);
     }
 
     this.questionIndex++;
@@ -51,6 +60,7 @@ Question.prototype.isCorrectAnswer = function(choice) {
 function populate() {
     if(quiz.isEnded()) {
         showScores();
+        stopInterval();
     }
     else {
         // show question
@@ -85,10 +95,23 @@ function showProgress() {
 };
 
 function showScores() {
-    var gameOverHTML = "<h1>Result</h1>";
-    gameOverHTML += "<h2 id='score'> Your scores: " + quiz.score + "</h2>";
+    if (count === 0) {
+        var gameOverHTML = "<h1>Result</h1>";
+    gameOverHTML += "<h2 id='score'> You got a: " + quiz.score+"/" + questions.length + " with "+(count) + " seconds left!" + "</h2>";
+    gameOverHTML += "<h2 id='score'> Final Score = Correct Answers *(Seconds Left > 0)" + "</h2>";
+    gameOverHTML += "<h2 id = 'score'> Final Score:" + quiz.score + "</h2>";
     var element = document.getElementById("quiz");
     element.innerHTML = gameOverHTML;
+    }
+    else {
+    var gameOverHTML = "<h1>Result</h1>";
+    gameOverHTML += "<h2 id='score'> You got a: " + quiz.score+"/" + questions.length + " with "+(count) + " seconds left!" + "</h2>";
+    gameOverHTML += "<h2 id='score'> Final Score = Correct Answers * (Seconds Left > 0)" + "</h2>";
+   gameOverHTML += "<h2 id = 'score'> Final Score:" +(count)*(quiz.score) + "</h2>";
+    var element = document.getElementById("quiz");
+    element.innerHTML = gameOverHTML;
+    }
+
 };
 
 // create questions here
