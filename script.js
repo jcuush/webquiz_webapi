@@ -95,24 +95,21 @@ function showProgress() {
 };
 
 function showScores() {
+var finalScore = (count)*(quiz.score);
     if (count === 0) {
-        var gameOverHTML = "<h1>Result</h1>";
-    gameOverHTML += "<h2 id='score'> You got a: " + quiz.score+"/" + questions.length + " with "+(count) + " seconds left!" + "</h2>";
-    gameOverHTML += "<h2 id='score'> Final Score = Correct Answers *(Seconds Left > 0)" + "</h2>";
-    gameOverHTML += "<h2 id = 'score'> Final Score:" + quiz.score + "</h2>";
-    var element = document.getElementById("quiz");
-    element.innerHTML = gameOverHTML;
-    }
-    else {
-    var gameOverHTML = "<h1>Result</h1>";
-    gameOverHTML += "<h2 id='score'> You got a: " + quiz.score+"/" + questions.length + " with "+(count) + " seconds left!" + "</h2>";
-    gameOverHTML += "<h2 id='score'> Final Score = Correct Answers * (Seconds Left > 0)" + "</h2>";
-   gameOverHTML += "<h2 id = 'score'> Final Score:" +(count)*(quiz.score) + "</h2>";
-    var element = document.getElementById("quiz");
-    element.innerHTML = gameOverHTML;
+        finalScore = quiz.score;
     }
 
-};
+    var element = document.getElementById("quiz");
+
+    var gameOverHTML = "<h1>Result</h1>";
+    gameOverHTML += "<h2 id='score'> Final Score = Correct Answers * (Seconds Left > 0)" + "</h2>";
+   gameOverHTML += "<h2 id = 'score'> Final Score: " +finalScore + "</h2>";
+    var element = document.getElementById("quiz");
+
+    element.innerHTML = gameOverHTML;
+}
+;
 
 // create questions here
 var questions = [
